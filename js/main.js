@@ -8,7 +8,7 @@ const getRandomInteger = (min, max) => {
     return;
   }
 
-  if (min === max) {
+  if (min === max && Number.isInteger(min)) {
     return min;
   }
 
