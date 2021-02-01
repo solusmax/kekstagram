@@ -19,3 +19,13 @@ const getRandomInteger = (min, max) => {
 
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+// Проверка, не превышает ли строка максимальное количество символов
+
+const isStringFit = (string, maxLength) => {
+  if (maxLength < 0) {
+    return;
+  }
+
+  return string.length <= maxLength;
+}
