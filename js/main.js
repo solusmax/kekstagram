@@ -29,3 +29,8 @@ const isStringFit = (string, maxLength) => {
 
   return string.length <= maxLength;
 }
+
+// Для ESLint (временно)
+
+getRandomInteger(16, 23);
+isStringFit('Строка', 42);
