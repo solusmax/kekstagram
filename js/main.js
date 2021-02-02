@@ -24,7 +24,7 @@ const getRandomInteger = (min, max) => {
 
 const isStringFit = (string, maxLength) => {
   if (maxLength < 0) {
-    return;
+    throw new RangeError('Число не должно быть отрицательным.');
   }
 
   return string.length <= maxLength;
