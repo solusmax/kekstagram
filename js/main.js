@@ -10,10 +10,6 @@ const getRandomInteger = (min, max) => {
     return;
   }
 
-  if (min === max && Number.isInteger(min)) {
-    return min;
-  }
-
   if (min > max) {
     [min, max] = [max, min];
   }
