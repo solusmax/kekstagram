@@ -1,13 +1,19 @@
 'use strict';
 
+// Проверка диапазона на невхождение целого числа
+
+const checkRangeForMissingInteger = (from, to) => Math.trunc(from) === Math.trunc(to) && !Number.isInteger(from) && !Number.isInteger(to);
+
 // Получить рандомное натуральное число (включая 0) из диапазона
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_integer_between_two_values_inclusive
 
 const getRandomInteger = (min, max) => {
-  if (min < 0 || max < 0 || (Math.trunc(min) === Math.trunc(max) && !Number.isInteger(min) && !Number.isInteger(max))) {
-    // Последняя часть условия — проверка,
-    // не создают ли параметры диапазон вроде (1.5, 1.6)
-    return;
+  if (min < 0 || max < 0) {
+    throw new RangeError('В диапазон не должны входить отрицательные числа.');
+  }
+
+  if (checkRangeForMissingInteger(min, max)) {
+    throw new RangeError('В диапазон должно входить хотя бы одно целое число.');
   }
 
   if (min > max) {
