@@ -100,22 +100,28 @@ const createComment = (data) => {
   }
 }
 
-// Создать объект фотографии
+// Сгенерировать комментарии к фотографии
 
-const createPhoto = (data, photoId) => {
-  const commentsNumber = getRandomInteger(1, data.maxCommentsPerItem);
+const generateCommentsForPhoto = (data) => {
   const allComments = [];
+  const commentsNumber = getRandomInteger(1, data.maxCommentsPerItem);
 
   for (let i = 0; i < commentsNumber; i++) {
     allComments.push(createComment(data));
   }
 
+  return allComments;
+}
+
+// Создать объект фотографии
+
+const createPhoto = (data, photoId) => {
   return {
     id: photoId,
     url: 'photos/' + photoId + '.jpg',
     description: 'Подпись к фотографии.',
     likes: getRandomInteger(15, 200),
-    comments: allComments,
+    comments: generateCommentsForPhoto(data),
   }
 }
 
