@@ -36,6 +36,10 @@ const isStringFit = (string, maxLength) => {
   return string.length <= maxLength;
 }
 
+// Получить рандомный элемент из массива
+
+const getRandomItem = (array) => array[getRandomInteger(0, array.length - 1)];
+
 // Для ESLint (временно)
 
 getRandomInteger(16, 23);
