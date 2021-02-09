@@ -29,6 +29,8 @@ const PhotosMockData = {
   ],
   MAX_COMMENTS_PER_ITEM: 8,
   MAX_COMMENT_ID: 10000,
+  MIN_LIKES: 15,
+  MAX_LIKES: 200,
 }
 const commentIds = [];
 
@@ -117,7 +119,7 @@ const createPhoto = (photoId) => {
     id: photoId,
     url: 'photos/' + photoId + '.jpg',
     description: 'Подпись к фотографии.',
-    likes: getRandomInteger(15, 200),
+    likes: getRandomInteger(PhotosMockData.MIN_LIKES, PhotosMockData.MAX_LIKES),
     comments: generateCommentsForPhoto(),
   }
 }
