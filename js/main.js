@@ -140,4 +140,4 @@ const generatePhotos = () => {
 
 getRandomInteger(16, 23);
 isStringFit('Строка', 42);
-generatePhotos(PhotosMockData);
+generatePhotos();
