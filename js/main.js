@@ -27,10 +27,10 @@ const PhotosMockData = {
     'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
   ],
-  commentIds: [],
   MAX_COMMENTS_PER_ITEM: 8,
   MAX_COMMENT_ID: 10000,
 }
+const commentIds = [];
 
 // Проверка диапазона на невхождение целого числа
 
@@ -79,9 +79,9 @@ const getRandomCommentId = () => {
 
   do {
     id = getRandomInteger(1, PhotosMockData.MAX_COMMENT_ID);
-  } while (PhotosMockData.commentIds.includes(id));
+  } while (commentIds.includes(id));
 
-  PhotosMockData.commentIds.push(id);
+  commentIds.push(id);
 
   return id;
 }
