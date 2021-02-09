@@ -74,37 +74,37 @@ const getRandomItem = (array) => array[getRandomInteger(0, array.length - 1)];
 
 // Получить рандомный неповторяющийся ID комментария
 
-const getRandomCommentId = (data) => {
+const getRandomCommentId = () => {
   let id;
 
   do {
-    id = getRandomInteger(1, data.MAX_COMMENT_ID);
-  } while (data.commentIds.includes(id));
+    id = getRandomInteger(1, PhotosMockData.MAX_COMMENT_ID);
+  } while (PhotosMockData.commentIds.includes(id));
 
-  data.commentIds.push(id);
+  PhotosMockData.commentIds.push(id);
 
   return id;
 }
 
 // Создать объект комментария
 
-const createComment = (data) => {
+const createComment = () => {
   return {
-    id: getRandomCommentId(data),
+    id: getRandomCommentId(),
     avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
-    message: getRandomItem(data.MESSAGES),
-    name: getRandomItem(data.NAMES),
+    message: getRandomItem(PhotosMockData.MESSAGES),
+    name: getRandomItem(PhotosMockData.NAMES),
   }
 }
 
 // Сгенерировать комментарии к фотографии
 
-const generateCommentsForPhoto = (data) => {
+const generateCommentsForPhoto = () => {
   const allComments = [];
-  const commentsNumber = getRandomInteger(1, data.MAX_COMMENTS_PER_ITEM);
+  const commentsNumber = getRandomInteger(1, PhotosMockData.MAX_COMMENTS_PER_ITEM);
 
   for (let i = 0; i < commentsNumber; i++) {
-    allComments.push(createComment(data));
+    allComments.push(createComment());
   }
 
   return allComments;
@@ -112,23 +112,23 @@ const generateCommentsForPhoto = (data) => {
 
 // Создать объект фотографии
 
-const createPhoto = (data, photoId) => {
+const createPhoto = (photoId) => {
   return {
     id: photoId,
     url: 'photos/' + photoId + '.jpg',
     description: 'Подпись к фотографии.',
     likes: getRandomInteger(15, 200),
-    comments: generateCommentsForPhoto(data),
+    comments: generateCommentsForPhoto(),
   }
 }
 
 // Сгенерировать массив с рандомными фотографиями
 
-const generatePhotos = (data) => {
+const generatePhotos = () => {
   const photos = [];
 
-  for (let i = 1; i <= data.QUANTITY; i++) {
-    photos.push(createPhoto(data, i));
+  for (let i = 1; i <= PhotosMockData.QUANTITY; i++) {
+    photos.push(createPhoto(i));
   }
 
   return photos;
