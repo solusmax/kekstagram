@@ -29,9 +29,7 @@ const PhotosMockData = {
   ],
   commentIds: [],
   MAX_COMMENTS_PER_ITEM: 8,
-  getMaxCommentId() {
-    return this.QUANTITY * this.MAX_COMMENTS_PER_ITEM + this.commentIds.length;
-  },
+  MAX_COMMENT_ID: 10000,
 }
 
 // Проверка диапазона на невхождение целого числа
@@ -77,11 +75,10 @@ const getRandomItem = (array) => array[getRandomInteger(0, array.length - 1)];
 // Получить рандомный неповторяющийся ID комментария
 
 const getRandomCommentId = (data) => {
-  const maxCommentId = data.getMaxCommentId();
   let id;
 
   do {
-    id = getRandomInteger(1, maxCommentId);
+    id = getRandomInteger(1, data.MAX_COMMENT_ID);
   } while (data.commentIds.includes(id));
 
   data.commentIds.push(id);
