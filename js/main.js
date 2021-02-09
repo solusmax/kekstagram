@@ -2,9 +2,9 @@
 
 // Временные данные для фотографий
 
-const photosMockData = {
-  quantity: 25,
-  names: [
+const PhotosMockData = {
+  QUANTITY: 25,
+  NAMES: [
     'Бен',
     'Десмонд',
     'Джеймс',
@@ -19,7 +19,7 @@ const photosMockData = {
     'Чарли',
     'Шеннон',
   ],
-  messages: [
+  MESSAGES: [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
     'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -28,9 +28,9 @@ const photosMockData = {
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
   ],
   commentIds: [],
-  maxCommentsPerItem: 8,
+  MAX_COMMENTS_PER_ITEM: 8,
   getMaxCommentId() {
-    return this.quantity * this.maxCommentsPerItem + this.commentIds.length;
+    return this.QUANTITY * this.MAX_COMMENTS_PER_ITEM + this.commentIds.length;
   },
 }
 
@@ -95,8 +95,8 @@ const createComment = (data) => {
   return {
     id: getRandomCommentId(data),
     avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
-    message: getRandomItem(data.messages),
-    name: getRandomItem(data.names),
+    message: getRandomItem(data.MESSAGES),
+    name: getRandomItem(data.NAMES),
   }
 }
 
@@ -104,7 +104,7 @@ const createComment = (data) => {
 
 const generateCommentsForPhoto = (data) => {
   const allComments = [];
-  const commentsNumber = getRandomInteger(1, data.maxCommentsPerItem);
+  const commentsNumber = getRandomInteger(1, data.MAX_COMMENTS_PER_ITEM);
 
   for (let i = 0; i < commentsNumber; i++) {
     allComments.push(createComment(data));
@@ -130,7 +130,7 @@ const createPhoto = (data, photoId) => {
 const generatePhotos = (data) => {
   const photos = [];
 
-  for (let i = 1; i <= data.quantity; i++) {
+  for (let i = 1; i <= data.QUANTITY; i++) {
     photos.push(createPhoto(data, i));
   }
 
@@ -141,4 +141,4 @@ const generatePhotos = (data) => {
 
 getRandomInteger(16, 23);
 isStringFit('Строка', 42);
-generatePhotos(photosMockData);
+generatePhotos(PhotosMockData);
