@@ -78,11 +78,11 @@ const getRandomItem = (array) => array[getRandomInteger(0, array.length - 1)];
 
 const getRandomCommentId = (data) => {
   const maxCommentId = data.getMaxCommentId();
-  let id = getRandomInteger(1, maxCommentId);
+  let id;
 
-  while (data.commentIds.includes(id)) {
+  do {
     id = getRandomInteger(1, maxCommentId);
-  }
+  } while (data.commentIds.includes(id));
 
   data.commentIds.push(id);
 
