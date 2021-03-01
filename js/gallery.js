@@ -20,3 +20,7 @@ pictures.forEach(({url, likes, comments}) => {
 });
 
 picturesNode.appendChild(picturesFragment);
+
+export {
+  pictures
+}
