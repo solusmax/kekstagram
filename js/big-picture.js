@@ -68,8 +68,14 @@ const createCommentHtml = ({avatar, message, name}) => {
   `;
 }
 
+const clearComments = () => {
+  while (commentsNode.firstElementChild) {
+    commentsNode.firstElementChild.remove();
+  }
+}
+
 const renderComments = (comments) => {
-  commentsNode.innerHTML = '';
+  clearComments();
 
   comments.forEach((comment) => {
     commentsNode.insertAdjacentHTML('beforeend', createCommentHtml(comment));
