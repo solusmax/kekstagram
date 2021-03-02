@@ -38,4 +38,13 @@ const isStringFit = (string, maxLength) => {
   return string.length <= maxLength;
 }
 
-export {getRandomInteger, getRandomItem, isStringFit};
+// Проверка нажатия клавиши Esc
+
+const isEscEvent = (evt) => evt.key === 'Escape';
+
+export {
+  getRandomInteger,
+  getRandomItem,
+  isStringFit,
+  isEscEvent
+};
