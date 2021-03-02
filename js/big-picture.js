@@ -70,8 +70,8 @@ const createComment = ({avatar, message, name}) => {
 }
 
 const clearComments = () => {
-  while (commentsNode.firstElementChild) {
-    commentsNode.firstElementChild.remove();
+  while (commentsNode.firstChild) {
+    commentsNode.firstChild.remove();
   }
 }
 
