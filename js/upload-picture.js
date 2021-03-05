@@ -159,6 +159,11 @@ const renderEffect = (effectRadioNode) => {
 
   previewImgNode.classList.add(currentEffectClass);
 
+  effectLevelValueNode.value = defaultVaule;
+  effectLevelValueNode.min = minValue;
+  effectLevelValueNode.max = maxValue;
+  effectLevelValueNode.step = stepValue;
+
   if (!sliderNode.noUiSlider) {
     createSlider(minValue, maxValue, stepValue, defaultVaule);
   } else {
