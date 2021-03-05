@@ -1,5 +1,5 @@
 import {pictures as picturesData} from './gallery.js';
-import {isEscEvent} from './util.js';
+import {openModal} from './modal.js';
 
 const pictures = document.querySelectorAll('.picture');
 
@@ -17,34 +17,6 @@ const commentTemplateNode = document.querySelector('#comment')
 // Для временного скрытия
 const socialCommentCountNode = bigPictureNode.querySelector('.social__comment-count');
 const commentsLoaderNode = bigPictureNode.querySelector('.comments-loader');
-
-const onBigPictureCloseClick = () => {
-  closeBigPicture();
-}
-
-const onBigPictureEscKeydown = (evt) => {
-  if (isEscEvent(evt)) {
-    evt.preventDefault();
-
-    closeBigPicture();
-  }
-}
-
-const openBigPicture = () => {
-  bigPictureNode.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-
-  closeButtonNode.addEventListener('click', onBigPictureCloseClick);
-  document.addEventListener('keydown', onBigPictureEscKeydown);
-}
-
-const closeBigPicture = () => {
-  bigPictureNode.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-
-  closeButtonNode.removeEventListener('click', onBigPictureCloseClick);
-  document.removeEventListener('keydown', onBigPictureEscKeydown);
-}
 
 const renderBigPicture = ({url, likes, comments, description}) => {
   imgNode.src = url;
@@ -89,7 +61,7 @@ const renderComments = (comments) => {
 
 pictures.forEach((pictureNode, index) => {
   pictureNode.addEventListener('click', () => {
-    openBigPicture();
+    openModal(bigPictureNode, closeButtonNode);
     renderBigPicture(picturesData[index]);
     renderComments(picturesData[index].comments);
   });
