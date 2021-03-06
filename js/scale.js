@@ -21,14 +21,14 @@ const renderScale = (scaleValue) => {
 };
 
 scaleMinusNode.addEventListener('click', () => {
-  if (!(currentScaleValue <= ScaleSettings.MIN)) {
+  if (currentScaleValue > ScaleSettings.MIN) {
     currentScaleValue -= ScaleSettings.STEP;
     renderScale(currentScaleValue);
   }
 });
 
 scalePlusNode.addEventListener('click', () => {
-  if (!(currentScaleValue >= ScaleSettings.MAX)) {
+  if (currentScaleValue < ScaleSettings.MAX) {
     currentScaleValue += ScaleSettings.STEP;
     renderScale(currentScaleValue);
   }
