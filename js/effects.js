@@ -38,11 +38,12 @@ const Effects = {
   },
 }
 
-const previewImgNode = document.querySelector('.img-upload__preview img')
-const sliderWrapperNode = document.querySelector('.effect-level');
+const uploadModalNode = document.querySelector('.img-upload__overlay');
+const previewImgNode = uploadModalNode.querySelector('.img-upload__preview img')
+const sliderWrapperNode = uploadModalNode.querySelector('.effect-level');
 const sliderNode = sliderWrapperNode.querySelector('.effect-level__slider');
-const effectRadioButtons = document.querySelectorAll('.effects__list [name="effect"]');
-const effectLevelValueNode = document.querySelector('.effect-level__value');
+const effectRadioButtons = uploadModalNode.querySelectorAll('.effects__radio');
+const effectLevelValueNode = uploadModalNode.querySelector('.effect-level__value');
 
 let currentEffectClass;
 

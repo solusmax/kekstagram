@@ -2,9 +2,9 @@ import {openModal} from './modal.js';
 import {resetScale} from './scale.js';
 import {removeSlider, resetPictureEffect} from './effects.js';
 
-const uploadButtonNode = document.querySelector('#upload-file');
+const uploadButtonNode = document.querySelector('.img-upload__input');
 const uploadModalNode = document.querySelector('.img-upload__overlay');
-const closeButtonNode = uploadModalNode.querySelector('#upload-cancel');
+const closeButtonNode = uploadModalNode.querySelector('.img-upload__cancel');
 
 const resetUploadValue = () => {
   uploadButtonNode.value = null;

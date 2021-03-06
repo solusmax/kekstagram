@@ -7,10 +7,11 @@ const ScaleSettings = {
   DEFAULT: 1,
 }
 
-const previewImgNode = document.querySelector('.img-upload__preview img')
-const scaleMinusNode = document.querySelector('.scale__control--smaller');
-const scalePlusNode = document.querySelector('.scale__control--bigger');
-const scaleValueNode = document.querySelector('.scale__control--value');
+const uploadModalNode = document.querySelector('.img-upload__overlay');
+const previewImgNode = uploadModalNode.querySelector('.img-upload__preview img')
+const scaleMinusNode = uploadModalNode.querySelector('.scale__control--smaller');
+const scalePlusNode = uploadModalNode.querySelector('.scale__control--bigger');
+const scaleValueNode = uploadModalNode.querySelector('.scale__control--value');
 
 let currentScaleValue = ScaleSettings.DEFAULT;
 
