@@ -1,4 +1,7 @@
 const Effects = {
+  DEFAULT: {
+    FILTER: 'none',
+  },
   CHROME: {
     FILTER: 'grayscale',
     MIN: 0,
@@ -94,7 +97,7 @@ const resetPictureEffect = () => {
     previewImgNode.classList.remove(currentEffectClass);
   }
 
-  previewImgNode.style.filter = 'none';
+  previewImgNode.style.filter = Effects.DEFAULT.FILTER;
   effectLevelValueNode.value = null;
 }
 
@@ -131,7 +134,7 @@ effectRadioButtons.forEach((effectRadioNode) => {
   effectRadioNode.addEventListener('change', () => {
     resetPictureEffect();
 
-    if (effectRadioNode.value === 'none') {
+    if (effectRadioNode.value === Effects.DEFAULT.FILTER) {
       removeSlider();
     } else {
       renderEffect(effectRadioNode);
