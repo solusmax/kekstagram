@@ -114,15 +114,15 @@ const resetPictureEffect = () => {
 }
 
 const getEffectValues = (effectName) => {
-  effectName = effectName.toUpperCase();
+  const effectValues = Effects[effectName.toUpperCase()];
 
   return {
-    filterName: Effects[effectName].FILTER,
-    unit: Effects[effectName].UNIT ? Effects[effectName].UNIT : '',
-    min: Effects[effectName].MIN,
-    max: Effects[effectName].MAX,
-    step: Effects[effectName].STEP,
-    defaultValue: Effects[effectName].DEFAULT,
+    filterName: effectValues.FILTER,
+    unit: effectValues.UNIT ? effectValues.UNIT : '',
+    min: effectValues.MIN,
+    max: effectValues.MAX,
+    step: effectValues.STEP,
+    defaultValue: effectValues.DEFAULT,
   }
 }
 
