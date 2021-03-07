@@ -50,14 +50,26 @@ const effectLevelValueNode = uploadModalNode.querySelector('.effect-level__value
 
 let currentEffectClass;
 
-const onSliderUpdate = (filterName, unit) => {
+const onEffectRadioChange = (effectName) => {
+  return () => {
+    resetPictureEffect();
+
+    if (effectName === Effects.DEFAULT.FILTER) {
+      removeSlider();
+    } else {
+      renderEffect(effectName);
+    }
+  }
+}
+
+const onSliderUpdate = ({ filterName, unit }) => {
   return (values, handle) => {
     effectLevelValueNode.value = values[handle];
     previewImgNode.style.filter = `${filterName}(${effectLevelValueNode.value}${unit})`;
   }
 }
 
-const createSlider = (min, max, step, defaultValue) => {
+const createSlider = ({ min, max, step, defaultValue }) => {
   // eslint-disable-next-line
   noUiSlider.create(sliderNode, {
     range: {
@@ -72,7 +84,7 @@ const createSlider = (min, max, step, defaultValue) => {
   sliderWrapperNode.classList.remove('hidden');
 }
 
-const updateSliderOptions = (min, max, step, defaultValue) => {
+const updateSliderOptions = ({ min, max, step, defaultValue }) => {
   sliderNode.noUiSlider.updateOptions({
     range: {
       'min': [min],
@@ -101,45 +113,55 @@ const resetPictureEffect = () => {
   effectLevelValueNode.value = null;
 }
 
-const renderEffect = (effectRadioNode) => {
-  const effectName = effectRadioNode.value.toUpperCase();
+const getEffectValues = (effectName) => {
+  effectName = effectName.toUpperCase();
 
-  const filterName = Effects[effectName].FILTER;
-  const unit = Effects[effectName].UNIT ? Effects[effectName].UNIT : '';
-  const minValue = Effects[effectName].MIN;
-  const maxValue = Effects[effectName].MAX;
-  const stepValue = Effects[effectName].STEP;
-  const defaultVaule = Effects[effectName].DEFAULT;
+  return {
+    filterName: Effects[effectName].FILTER,
+    unit: Effects[effectName].UNIT ? Effects[effectName].UNIT : '',
+    min: Effects[effectName].MIN,
+    max: Effects[effectName].MAX,
+    step: Effects[effectName].STEP,
+    defaultValue: Effects[effectName].DEFAULT,
+  }
+}
 
-  currentEffectClass = `effects__preview--${effectRadioNode.value}`;
+const getEffectClass = (effectName) => `effects__preview--${effectName}`;
+
+const setEffectClass = (effectName) => {
+  currentEffectClass = getEffectClass(effectName);
 
   previewImgNode.classList.add(currentEffectClass);
+}
 
-  effectLevelValueNode.value = defaultVaule;
-  effectLevelValueNode.min = minValue;
-  effectLevelValueNode.max = maxValue;
-  effectLevelValueNode.step = stepValue;
+const setEffectLevelNodeAttributes = ({ min, max, step, defaultValue }) => {
+  effectLevelValueNode.min = min;
+  effectLevelValueNode.max = max;
+  effectLevelValueNode.step = step;
+  effectLevelValueNode.value = defaultValue;
+}
 
+const renderSlider = (effectValues) => {
   if (!sliderNode.noUiSlider) {
-    createSlider(minValue, maxValue, stepValue, defaultVaule);
+    createSlider(effectValues);
   } else {
-    updateSliderOptions(minValue, maxValue, stepValue, defaultVaule);
+    updateSliderOptions(effectValues);
     sliderNode.noUiSlider.off('update');
   }
 
-  sliderNode.noUiSlider.on('update', onSliderUpdate(filterName, unit));
+  sliderNode.noUiSlider.on('update', onSliderUpdate(effectValues));
+}
+
+const renderEffect = (effectName) => {
+  const effectValues = getEffectValues(effectName);
+
+  setEffectClass(effectName);
+  setEffectLevelNodeAttributes(effectValues);
+  renderSlider(effectValues);
 }
 
 effectRadioButtons.forEach((effectRadioNode) => {
-  effectRadioNode.addEventListener('change', () => {
-    resetPictureEffect();
-
-    if (effectRadioNode.value === Effects.DEFAULT.FILTER) {
-      removeSlider();
-    } else {
-      renderEffect(effectRadioNode);
-    }
-  });
+  effectRadioNode.addEventListener('change', onEffectRadioChange(effectRadioNode.value));
 });
 
 export {
