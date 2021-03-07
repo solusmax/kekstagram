@@ -8,7 +8,7 @@ const ScaleSettings = {
 }
 
 const uploadModalNode = document.querySelector('.img-upload__overlay');
-const previewImgNode = uploadModalNode.querySelector('.img-upload__preview img')
+const previewImgNode = uploadModalNode.querySelector('.img-upload__preview img');
 const scaleMinusNode = uploadModalNode.querySelector('.scale__control--smaller');
 const scalePlusNode = uploadModalNode.querySelector('.scale__control--bigger');
 const scaleValueNode = uploadModalNode.querySelector('.scale__control--value');

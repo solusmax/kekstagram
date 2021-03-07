@@ -42,7 +42,7 @@ const Effects = {
 }
 
 const uploadModalNode = document.querySelector('.img-upload__overlay');
-const previewImgNode = uploadModalNode.querySelector('.img-upload__preview img')
+const previewImgNode = uploadModalNode.querySelector('.img-upload__preview img');
 const sliderWrapperNode = uploadModalNode.querySelector('.effect-level');
 const sliderNode = sliderWrapperNode.querySelector('.effect-level__slider');
 const effectRadioButtons = uploadModalNode.querySelectorAll('.effects__radio');
