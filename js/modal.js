@@ -1,5 +1,5 @@
-import {isEscEvent} from './util.js';
-import {resetPictureSettings} from './upload-picture.js';
+import { isEscEvent } from './util.js';
+import { resetPictureSettings } from './upload-picture.js';
 
 const onModalCloseClick = (modalNode, closeNode, specialModal) => {
   return () => {

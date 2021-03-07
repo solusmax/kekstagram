@@ -1,6 +1,6 @@
-import {openModal} from './modal.js';
-import {resetScale} from './scale.js';
-import {removeSlider, resetPictureEffect} from './effects.js';
+import { openModal } from './modal.js';
+import { resetScale } from './scale.js';
+import { removeSlider, resetPictureEffect } from './effects.js';
 
 const uploadButtonNode = document.querySelector('.img-upload__input');
 const uploadModalNode = document.querySelector('.img-upload__overlay');

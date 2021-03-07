@@ -1,4 +1,4 @@
-import {convertDecimalToPercent} from './util.js';
+import { convertDecimalToPercent } from './util.js';
 
 const ScaleSettings = {
   MIN: 0.25,

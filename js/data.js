@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomItem} from './util.js';
+import { getRandomInteger, getRandomItem } from './util.js';
 
 // Временные данные для фотографий
 
@@ -104,4 +104,6 @@ const generatePhotos = () => {
   return photos;
 }
 
-export {generatePhotos};
+export {
+  generatePhotos
+};

@@ -1,5 +1,5 @@
-import {pictures as picturesData} from './gallery.js';
-import {openModal} from './modal.js';
+import { pictures as picturesData } from './gallery.js';
+import { openModal } from './modal.js';
 
 const pictures = document.querySelectorAll('.picture');
 
@@ -18,7 +18,7 @@ const commentTemplateNode = document.querySelector('#comment')
 const socialCommentCountNode = bigPictureNode.querySelector('.social__comment-count');
 const commentsLoaderNode = bigPictureNode.querySelector('.comments-loader');
 
-const renderBigPicture = ({url, likes, comments, description}) => {
+const renderBigPicture = ({ url, likes, comments, description }) => {
   imgNode.src = url;
   likesCounterNode.textContent = likes;
   commentsCounterNode.textContent = comments.length;
@@ -29,7 +29,7 @@ const renderBigPicture = ({url, likes, comments, description}) => {
   commentsLoaderNode.classList.add('hidden');
 }
 
-const createComment = ({avatar, message, name}) => {
+const createComment = ({ avatar, message, name }) => {
   const commentNode = commentTemplateNode.cloneNode(true);
   const commentAvatarNode = commentNode.querySelector('.social__picture');
   const commentMessageNode = commentNode.querySelector('.social__text');
