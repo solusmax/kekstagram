@@ -42,9 +42,14 @@ const isStringFit = (string, maxLength) => {
 
 const isEscEvent = (evt) => evt.key === 'Escape';
 
+// Перевести десятичную дробь в строку с процентами
+
+const convertDecimalToPercent = (numberValue) => (numberValue * 100) + '%';
+
 export {
   getRandomInteger,
   getRandomItem,
   isStringFit,
-  isEscEvent
+  isEscEvent,
+  convertDecimalToPercent
 };

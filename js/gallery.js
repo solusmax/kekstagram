@@ -1,4 +1,4 @@
-import {generatePhotos} from './data.js';
+import { generatePhotos } from './data.js';
 
 const picturesNode = document.querySelector('.pictures');
 const pictureTemplateNode = document.querySelector('#picture')
@@ -9,7 +9,7 @@ const pictures = generatePhotos();
 
 const picturesFragment = document.createDocumentFragment();
 
-pictures.forEach(({url, likes, comments}) => {
+pictures.forEach(({ url, likes, comments }) => {
   const pictureNode = pictureTemplateNode.cloneNode(true);
 
   pictureNode.querySelector('.picture__img').src = url;
