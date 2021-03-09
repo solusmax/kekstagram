@@ -10,15 +10,13 @@ const uploadButtonNode = document.querySelector('#upload-file');
 const uploadModalNode = document.querySelector('.img-upload__overlay');
 const closeButtonNode = uploadModalNode.querySelector('#upload-cancel');
 
-const reportError = (field, string) => {
+const reportError = (field, string, borderStyle) => {
+  field.style.border = borderStyle;
   field.setCustomValidity(string);
-  field.style.border = ERROR_BORDER_STYLE;
+  field.reportValidity();
 }
 
-const reportNoError = (field) => {
-  field.setCustomValidity('');
-  field.style = null;
-}
+const reportNoError = (field) => reportError(field, '', null);
 
 const isUploadFieldInFocus = (evt) => {
   return (
@@ -48,5 +46,6 @@ export {
   resetUploadSettings,
   isUploadFieldInFocus,
   reportError,
-  reportNoError
+  reportNoError,
+  ERROR_BORDER_STYLE
 }

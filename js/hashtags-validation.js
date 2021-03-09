@@ -1,18 +1,9 @@
 import { isStringFit, isStringEmpty } from './util.js';
-import { reportError, reportNoError } from './upload-picture.js';
+import { reportError, reportNoError, ERROR_BORDER_STYLE } from './upload-picture.js';
 
 const HashtagsSettings = {
   MAX_NUMBER: 5,
   MAX_LENGTH: 20,
-}
-
-const errorMessages = {
-  notHashtag: 'Хештег должен начинаться с #',
-  tooShort: 'Добавьте текст хештега после символа #',
-  tooLong: `Максимальное количество символов в хештеге (включая #): ${HashtagsSettings.MAX_LENGTH}`,
-  textIsNotValid: 'Хештег может содержать только буквы и цифры',
-  tooManyHashtags: `Хештегов не должно быть больше ${HashtagsSettings.MAX_NUMBER}`,
-  notUnique: 'Хештеги не должны повторяться',
 }
 
 const uploadFormNode = document.querySelector('.img-upload__form');
@@ -21,29 +12,23 @@ const hashtagsFieldNode = uploadFormNode.querySelector('.text__hashtags');
 const onHashtagsFieldChange = () => {
   const hashtagsString = hashtagsFieldNode.value;
 
-  if (!isStringEmpty(hashtagsString)) {
-    const hashtags = getHashtags(hashtagsString);
+  if (isStringEmpty(hashtagsString)) {
+    if (hashtagsFieldNode.validity.customError) {
+      reportNoError(hashtagsFieldNode);
+    }
+    return;
+  }
 
-    if (!areTheseHashtags(hashtags)) {
-      reportError(hashtagsFieldNode, errorMessages.notHashtag);
-    } else if (!areHashtagsLongEnough(hashtags)) {
-      reportError(hashtagsFieldNode, errorMessages.tooShort);
-    } else if (!areHashtagsTextsValid(hashtags)) {
-      reportError(hashtagsFieldNode, errorMessages.textIsNotValid);
-    } else if (!areHashtagsFit(hashtags)) {
-      reportError(hashtagsFieldNode, errorMessages.tooLong);
-    } else if (!isHashtagsNumberNotExceed(hashtags)) {
-      reportError(hashtagsFieldNode, errorMessages.tooManyHashtags)
-    } else if (!areHashtagsUnique(hashtags)){
-      reportError(hashtagsFieldNode, errorMessages.notUnique)
+  const hashtags = getHashtags(hashtagsString);
+
+  for (const [validationFunction, errorMessage] of errorCheckers.entries()) {
+    if (!validationFunction(hashtags)) {
+      reportError(hashtagsFieldNode, errorMessage, ERROR_BORDER_STYLE);
+      return;
     } else {
       reportNoError(hashtagsFieldNode);
     }
-  } else if (hashtagsFieldNode.validity.customError) {
-    reportNoError(hashtagsFieldNode);
   }
-
-  hashtagsFieldNode.reportValidity();
 }
 
 const getHashtags = (string) => string.trim().split(/[\s]+/);
@@ -113,6 +98,15 @@ const areHashtagsUnique = (hashtags) => {
 
   return true;
 }
+
+const errorCheckers = new Map([
+  [areTheseHashtags, 'Хештег должен начинаться с #'],
+  [areHashtagsLongEnough, 'Добавьте текст хештега после символа #'],
+  [areHashtagsFit, `В хештеге количество символов (включая #) не должно быть больше ${HashtagsSettings.MAX_LENGTH}`],
+  [areHashtagsTextsValid, 'Хештег может содержать только буквы и цифры'],
+  [areHashtagsUnique, 'Хештеги не должны повторяться'],
+  [isHashtagsNumberNotExceed, `Хештегов не должно быть больше ${HashtagsSettings.MAX_NUMBER}`],
+]);
 
 hashtagsFieldNode.addEventListener('change', onHashtagsFieldChange);
 

@@ -1,5 +1,5 @@
 import { isStringFit } from './util.js';
-import { reportError, reportNoError } from './upload-picture.js';
+import { reportError, reportNoError, ERROR_BORDER_STYLE } from './upload-picture.js';
 
 const MAX_COMMENT_LENGTH = 140;
 
@@ -14,7 +14,7 @@ const onCommentFieldInput = () => {
   const comment = commentFieldNode.value;
 
   if (!isCommentFit(comment)) {
-    reportError(commentFieldNode, errorMessageTooLong);
+    reportError(commentFieldNode, errorMessageTooLong, ERROR_BORDER_STYLE);
   } else {
     reportNoError(commentFieldNode);
   }
