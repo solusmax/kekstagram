@@ -35,55 +35,27 @@ const getHashtags = (string) => string.trim().split(/[\s]+/);
 
 const getHashtagText = (hashtag) => hashtag.slice(1);
 
-const isItHashtag = (string) => string[0] === '#';
-
-const areTheseHashtags = (hashtags) => {
-  for (const hashtag of hashtags) {
-    if (!isItHashtag(hashtag)) {
+const checkAllHashtags = (validationFunction, hashtags) => {
+  for (const item of hashtags) {
+    if (!validationFunction(item)) {
       return false;
     }
   }
 
   return true;
 }
+
+const isItHashtag = (string) => string[0] === '#';
+const areTheseHashtags = (hashtags) => checkAllHashtags(isItHashtag, hashtags);
 
 const isHashtagLongEnough = (hashtag) => hashtag.length > 1;
-
-const areHashtagsLongEnough = (hashtags) => {
-  for (const hashtag of hashtags) {
-    if (!isHashtagLongEnough(hashtag)) {
-      return false;
-    }
-  }
-
-  return true;
-}
+const areHashtagsLongEnough = (hashtags) => checkAllHashtags(isHashtagLongEnough, hashtags);
 
 const isHashtagFit = (hashtag) => isStringFit(hashtag, HashtagsSettings.MAX_LENGTH);
+const areHashtagsFit = (hashtags) => checkAllHashtags(isHashtagFit, hashtags);
 
-const areHashtagsFit = (hashtags) => {
-  for (const hashtag of hashtags) {
-    if (!isHashtagFit(hashtag)) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-const isHashtagTextValid = (hashtagText) => hashtagText.search(/[\p{P}\p{S}]/u) === -1;
-
-const areHashtagsTextsValid = (hashtags) => {
-  for (const hashtag of hashtags) {
-    const hashtagText = getHashtagText(hashtag);
-
-    if (!isHashtagTextValid(hashtagText)) {
-      return false;
-    }
-  }
-
-  return true;
-}
+const isHashtagTextValid = (hashtag) => getHashtagText(hashtag).search(/[\p{P}\p{S}]/u) === -1;
+const areHashtagsTextsValid = (hashtags) => checkAllHashtags(isHashtagTextValid, hashtags);
 
 const isHashtagsNumberNotExceed = (hashtags) => hashtags.length <= HashtagsSettings.MAX_NUMBER;
 
@@ -106,8 +78,8 @@ const areHashtagsUnique = (hashtags) => {
 const errorCheckers = new Map([
   [areTheseHashtags, 'Хештег должен начинаться с #'],
   [areHashtagsLongEnough, 'Добавьте текст хештега после символа #'],
-  [areHashtagsFit, `В хештеге количество символов (включая #) не должно быть больше ${HashtagsSettings.MAX_LENGTH}`],
   [areHashtagsTextsValid, 'Хештег может содержать только буквы и цифры'],
+  [areHashtagsFit, `В хештеге количество символов (включая #) не должно быть больше ${HashtagsSettings.MAX_LENGTH}`],
   [areHashtagsUnique, 'Хештеги не должны повторяться'],
   [isHashtagsNumberNotExceed, `Хештегов не должно быть больше ${HashtagsSettings.MAX_NUMBER}`],
 ]);
