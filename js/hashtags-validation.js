@@ -88,12 +88,16 @@ const areHashtagsTextsValid = (hashtags) => {
 const isHashtagsNumberNotExceed = (hashtags) => hashtags.length <= HashtagsSettings.MAX_NUMBER;
 
 const areHashtagsUnique = (hashtags) => {
-  for (let i = 0; i < hashtags.length - 1; i++) {
-    for (let j = i + 1; j < hashtags.length; j++) {
-      if (hashtags[i].toLowerCase() === hashtags[j].toLowerCase()) {
-        return false;
-      }
+  const previousHashtags = [];
+
+  for (const hashtag of hashtags) {
+    const hashtagLowercased = hashtag.toLowerCase();
+
+    if (previousHashtags.includes(hashtagLowercased)) {
+      return false;
     }
+
+    previousHashtags.push(hashtagLowercased);
   }
 
   return true;
