@@ -18,8 +18,6 @@ const onCommentFieldInput = () => {
   } else {
     reportNoError(commentFieldNode);
   }
-
-  commentFieldNode.reportValidity();
 }
 
 const isCommentFit = (comment) => isStringFit(comment, MAX_COMMENT_LENGTH);
