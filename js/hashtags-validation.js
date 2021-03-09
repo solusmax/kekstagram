@@ -18,7 +18,7 @@ const errorMessages = {
 const uploadFormNode = document.querySelector('.img-upload__form');
 const hashtagsFieldNode = uploadFormNode.querySelector('.text__hashtags');
 
-const onHashtagsFieldInput = () => {
+const onHashtagsFieldChange = () => {
   const hashtagsString = hashtagsFieldNode.value;
 
   if (!isStringEmpty(hashtagsString)) {
@@ -114,7 +114,7 @@ const areHashtagsUnique = (hashtags) => {
   return true;
 }
 
-hashtagsFieldNode.addEventListener('input', onHashtagsFieldInput);
+hashtagsFieldNode.addEventListener('change', onHashtagsFieldChange);
 
 export {
   hashtagsFieldNode
