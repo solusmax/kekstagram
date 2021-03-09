@@ -4,7 +4,7 @@ import { removeSlider, resetPictureEffect } from './effects.js';
 import { hashtagsFieldNode } from './hashtags-validation.js';
 import { commentFieldNode } from './comment-validation.js';
 
-const ERROR_BORDER_STYLE = '2px red solid';
+const ERROR_BORDER_STYLE = '3px red solid';
 
 const uploadButtonNode = document.querySelector('#upload-file');
 const uploadModalNode = document.querySelector('.img-upload__overlay');
