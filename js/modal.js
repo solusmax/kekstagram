@@ -1,5 +1,5 @@
 import { isEscEvent } from './util.js';
-import { resetPictureSettings } from './upload-picture.js';
+import { resetUploadSettings, isUploadFieldInFocus } from './upload-picture.js';
 
 const onModalCloseClick = (modalNode, closeNode, specialModal) => {
   return () => {
@@ -9,7 +9,7 @@ const onModalCloseClick = (modalNode, closeNode, specialModal) => {
 
 const onModalEscKeydown = (modalNode, closeNode, specialModal) => {
   return (evt) => {
-    if (isEscEvent(evt)) {
+    if (isEscEvent(evt) && !isUploadFieldInFocus(evt)) {
       evt.preventDefault();
 
       closeModal(modalNode, closeNode, specialModal);
@@ -39,7 +39,7 @@ const closeModal = (modalNode, closeNode, specialModal) => {
   document.removeEventListener('keydown', onModalEscKeydownWrapper);
 
   if (specialModal === 'upload') {
-    resetPictureSettings();
+    resetUploadSettings();
   }
 }
 

@@ -46,10 +46,15 @@ const isEscEvent = (evt) => evt.key === 'Escape';
 
 const convertDecimalToPercent = (numberValue) => (numberValue * 100) + '%';
 
+// Проверка, содержит ли строка исключительно whitespace
+
+const isStringEmpty = (string) => string.trim() === '';
+
 export {
   getRandomInteger,
   getRandomItem,
   isStringFit,
   isEscEvent,
-  convertDecimalToPercent
+  convertDecimalToPercent,
+  isStringEmpty
 };
