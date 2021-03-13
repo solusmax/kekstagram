@@ -1,7 +1,4 @@
-import { pictures as picturesData } from './gallery.js';
 import { openModal } from './modal.js';
-
-const pictures = document.querySelectorAll('.picture');
 
 const bigPictureNode = document.querySelector('.big-picture');
 const closeButtonNode = bigPictureNode.querySelector('#picture-cancel');
@@ -59,10 +56,18 @@ const renderComments = (comments) => {
   commentsNode.appendChild(commentsFragment);
 }
 
-pictures.forEach((pictureNode, index) => {
-  pictureNode.addEventListener('click', () => {
-    openModal(bigPictureNode, closeButtonNode);
-    renderBigPicture(picturesData[index]);
-    renderComments(picturesData[index].comments);
+const setPicturesListeners = (picturesData) => {
+  const pictures = document.querySelectorAll('.picture');
+
+  pictures.forEach((pictureNode, index) => {
+    pictureNode.addEventListener('click', () => {
+      openModal(bigPictureNode, closeButtonNode);
+      renderBigPicture(picturesData[index]);
+      renderComments(picturesData[index].comments);
+    });
   });
-});
+}
+
+export {
+  setPicturesListeners
+}

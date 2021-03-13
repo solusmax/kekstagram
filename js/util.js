@@ -1,32 +1,6 @@
-// Проверка диапазона на невхождение целого числа
-
-const checkRangeForMissingInteger = (from, to) => Math.trunc(from) === Math.trunc(to) && !Number.isInteger(from) && !Number.isInteger(to);
-
-// Получить рандомное натуральное число (включая 0) из диапазона
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_integer_between_two_values_inclusive
-
-const getRandomInteger = (min, max) => {
-  if (min < 0 || max < 0) {
-    throw new RangeError('В диапазон не должны входить отрицательные числа.');
-  }
-
-  if (checkRangeForMissingInteger(min, max)) {
-    throw new RangeError('В диапазон должно входить хотя бы одно целое число.');
-  }
-
-  if (min > max) {
-    [min, max] = [max, min];
-  }
-
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-// Получить рандомный элемент из массива
-
-const getRandomItem = (array) => array[getRandomInteger(0, array.length - 1)];
+const errorMessageTemplateNode = document.querySelector('#error-alert')
+  .content
+  .querySelector('.error-alert');
 
 // Проверка, не превышает ли строка максимальное количество символов
 
@@ -50,11 +24,27 @@ const convertDecimalToPercent = (numberValue) => (numberValue * 100) + '%';
 
 const isStringEmpty = (string) => string.trim() === '';
 
+// Показать сообщение об ошибке
+
+const showErrorMessage = (message) => {
+  const errorMessageNode = errorMessageTemplateNode.cloneNode(true);
+
+  errorMessageNode.querySelector('.error-alert__title').textContent = message;
+
+  document.body.appendChild(errorMessageNode);
+}
+
+// Очистить поле формы
+
+const clearFormField = (field) => {
+  field.value = '';
+}
+
 export {
-  getRandomInteger,
-  getRandomItem,
   isStringFit,
   isEscEvent,
   convertDecimalToPercent,
-  isStringEmpty
+  isStringEmpty,
+  showErrorMessage,
+  clearFormField
 };
