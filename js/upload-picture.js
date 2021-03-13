@@ -1,6 +1,6 @@
 import { openModal, closeModal } from './modal.js';
 import { resetScale } from './scale.js';
-import { removeSlider, resetPictureEffect } from './effects.js';
+import { removeSlider, resetPictureEffect, resetEffectRadioButtons } from './effects.js';
 import { hashtagsFieldNode } from './hashtags-validation.js';
 import { commentFieldNode } from './comment-validation.js';
 import { sendPhotoData } from './data.js';
@@ -37,6 +37,7 @@ const resetUploadSettings = () => {
   resetScale();
   resetPictureEffect();
   removeSlider();
+  resetEffectRadioButtons();
   resetUploadValue();
   reportNoError(hashtagsFieldNode);
   reportNoError(commentFieldNode);
