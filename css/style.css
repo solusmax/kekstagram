@@ -1344,6 +1344,30 @@ main {
 }
 
 
+/**
+ * Сообщение об ошибке загрузки изображений пользователей
+ */
+
+ .error-alert {
+   position: fixed;
+   left: 0;
+   right: 0;
+   top: 0;
+
+   padding: 20px;
+
+   background-color: #ad2108;
+ }
+
+
+.error-alert__title {
+  margin: 0;
+  padding: 0;
+
+  color: #ffffff;
+}
+
+
 /* Адаптивности чуток
    ========================================================================== */
 

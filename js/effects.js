@@ -113,6 +113,10 @@ const resetPictureEffect = () => {
   effectLevelValueNode.value = null;
 }
 
+const resetEffectRadioButtons = () => {
+  effectRadioButtons[0].checked = true;
+}
+
 const getEffectValues = (effectName) => {
   const effectValues = Effects[effectName.toUpperCase()];
 
@@ -166,5 +170,6 @@ effectRadioButtons.forEach((effectRadioNode) => {
 
 export {
   removeSlider,
-  resetPictureEffect
+  resetPictureEffect,
+  resetEffectRadioButtons
 }

@@ -44,5 +44,6 @@ const closeModal = (modalNode, closeNode, specialModal) => {
 }
 
 export {
-  openModal
+  openModal,
+  closeModal
 }
