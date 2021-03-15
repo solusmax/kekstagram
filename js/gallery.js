@@ -1,3 +1,5 @@
+import { setPicturesListeners } from './big-picture.js';
+
 const picturesNode = document.querySelector('.pictures');
 const pictureTemplateNode = document.querySelector('#picture')
   .content
@@ -19,6 +21,21 @@ const renderPictures = (pictures) => {
   picturesNode.appendChild(picturesFragment);
 }
 
+const clearPictures = () => {
+  const allPictures = picturesNode.querySelectorAll('.picture');
+
+  allPictures.forEach((picture) => {
+    picture.remove();
+  });
+}
+
+const updatePictures = (pictures) => {
+  clearPictures();
+  renderPictures(pictures);
+  setPicturesListeners(pictures);
+}
+
 export {
-  renderPictures
+  renderPictures,
+  updatePictures
 }

@@ -1,6 +1,4 @@
 import { showErrorMessage } from './util.js';
-import { renderPictures } from './gallery.js';
-import { setPicturesListeners } from './big-picture.js';
 
 const PHOTOS_DATA_URL = 'https://22.javascript.pages.academy/kekstagram/data';
 const SENDING_PHOTO_URL = 'https://22.javascript.pages.academy/kekstagram';
@@ -25,11 +23,6 @@ const getPhotosData = (onSuccess) => {
     });
 }
 
-getPhotosData((picturesData) => {
-  renderPictures(picturesData);
-  setPicturesListeners(picturesData);
-});
-
 const sendPhotoData = (onSuccess, onError, body) => {
   fetch(SENDING_PHOTO_URL, {
     method: 'POST',
@@ -48,5 +41,6 @@ const sendPhotoData = (onSuccess, onError, body) => {
 }
 
 export {
+  getPhotosData,
   sendPhotoData
 }
