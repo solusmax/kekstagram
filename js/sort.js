@@ -28,9 +28,11 @@ const sortGalleryRadnomly = (pictures) => {
   updatePictures(sortedPicures);
 }
 
+const getPictureCommentsCount = (picture) => picture.comments.length;
+
 const comparePicturesByComments = (pictureA, pictureB) => {
-  const commentsCountA = pictureA.comments.length;
-  const commentsCountB = pictureB.comments.length;
+  const commentsCountA = getPictureCommentsCount(pictureA);
+  const commentsCountB = getPictureCommentsCount(pictureB);
 
   return commentsCountB - commentsCountA;
 }
