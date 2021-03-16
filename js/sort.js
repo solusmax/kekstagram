@@ -5,13 +5,6 @@ import { updatePictures } from './gallery.js';
 const sortButtonsNode = document.querySelector('.img-filters');
 const sortButtonActiveClassName = 'img-filters__button--active';
 const SIZE_OF_RANDOM_GALLERY = 10;
-const sortOrders = [
-  'default',
-  'random',
-  'discussed',
-];
-
-let currentSortOrder = sortOrders[0];
 
 const showSortButtons = () => {
   sortButtonsNode.classList.remove('img-filters--inactive');
@@ -45,18 +38,16 @@ const sortGalleryByComments = (pictures) => {
   updatePictures(sortedPicures);
 }
 
+const sortOrders = {
+  'default': sortGalleryByDefault,
+  'random': sortGalleryRadnomly,
+  'discussed': sortGalleryByComments,
+}
+
+let currentSortOrder = Object.keys(sortOrders)[0];
+
 const sortGallery = (sortOrder, pictures) => {
-  switch (sortOrder) {
-    case 'default':
-      sortGalleryByDefault(pictures);
-      break;
-    case 'random':
-      sortGalleryRadnomly(pictures);
-      break;
-    case 'discussed':
-      sortGalleryByComments(pictures);
-      break;
-  }
+  sortOrders[sortOrder](pictures);
 }
 
 const getSortButtonSelector = (sortOrder) => `#filter-${sortOrder}`;
@@ -71,7 +62,7 @@ const setSortButtonActiveClass = (activeSortButtonNode, sortOrder) => {
 }
 
 const setSortButtonsListeners = (cb) => {
-  sortOrders.forEach((sortOrder) => {
+  for (const sortOrder of Object.keys(sortOrders)) {
     const sortButtonNode = document.querySelector(getSortButtonSelector(sortOrder));
 
     sortButtonNode.addEventListener('click', (evt) => {
@@ -83,7 +74,7 @@ const setSortButtonsListeners = (cb) => {
         cb(sortOrder);
       }
     });
-  });
+  }
 }
 
 export {
