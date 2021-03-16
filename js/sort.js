@@ -46,9 +46,7 @@ const sortOrders = {
 
 let currentSortOrder = Object.keys(sortOrders)[0];
 
-const sortGallery = (sortOrder, pictures) => {
-  sortOrders[sortOrder](pictures);
-}
+const sortGallery = (sortOrder, pictures) => sortOrders[sortOrder](pictures);
 
 const getSortButtonSelector = (sortOrder) => `#filter-${sortOrder}`;
 
