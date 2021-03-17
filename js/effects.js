@@ -1,3 +1,5 @@
+/* global noUiSlider:readonly */
+
 const Effects = {
   DEFAULT: {
     FILTER: 'none',
@@ -70,7 +72,6 @@ const onSliderUpdate = ({ filterName, unit }) => {
 }
 
 const createSlider = ({ min, max, step, defaultValue }) => {
-  // eslint-disable-next-line
   noUiSlider.create(sliderNode, {
     range: {
       'min': [min],
