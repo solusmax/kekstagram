@@ -26,12 +26,18 @@ const isStringEmpty = (string) => string.trim() === '';
 
 // Показать сообщение об ошибке
 
-const showErrorMessage = (message) => {
+const showErrorMessage = (message, timer) => {
   const errorMessageNode = errorMessageTemplateNode.cloneNode(true);
 
   errorMessageNode.querySelector('.error-alert__title').textContent = message;
 
   document.body.appendChild(errorMessageNode);
+
+  if (timer) {
+    setTimeout(() => {
+      errorMessageNode.remove();
+    }, timer)
+  }
 }
 
 // Очистить поле формы
