@@ -76,14 +76,15 @@ const renderComments = (comments) => {
   let currentComments = comments.slice();
   let commentsNumber = currentComments.length;
 
-  onCommentsLoaderClickWrapper = onCommentsLoaderClick(currentComments);
+  if (commentsNumber === 0) {
+    return;
+  }
 
-  if (commentsNumber > 0) {
-    renderPieceOfComments(currentComments);
+  renderPieceOfComments(currentComments);
 
-    if (commentsNumber > COMMENTS_IN_PIECE) {
-      showCommentsLoader();
-    }
+  if (commentsNumber > COMMENTS_IN_PIECE) {
+    onCommentsLoaderClickWrapper = onCommentsLoaderClick(currentComments);
+    showCommentsLoader();
   }
 }
 

@@ -1,12 +1,21 @@
+import { resetPicturePreview, showPictureLoader, hidePictureLoader, loadChosenPicture } from './render-preview.js';
 import { openModal, closeModal } from './modal.js';
 import { resetScale } from './scale.js';
 import { removeSlider, resetPictureEffect, resetEffectRadioButtons } from './effects.js';
 import { hashtagsFieldNode } from './hashtags-validation.js';
 import { commentFieldNode } from './comment-validation.js';
 import { sendPhotoData } from './data.js';
-import { isEscEvent, clearFormField } from './util.js';
+import { isEscEvent, clearFormField, showErrorMessage } from './util.js';
 
+const PICTURE_FILE_TYPES = [
+  'jpg',
+  'jpeg',
+  'png',
+];
+const WRONG_TYPE_MESSAGE_DURATION = 1500;
 const ERROR_BORDER_STYLE = '3px red solid';
+
+const wrongTypeMessage = 'Выбран неподходящий файл';
 
 const uploadForm = document.querySelector('#upload-select-image');
 const uploadButtonNode = uploadForm.querySelector('#upload-file');
@@ -39,11 +48,14 @@ const resetUploadSettings = () => {
   removeSlider();
   resetEffectRadioButtons();
   resetUploadValue();
+  resetPicturePreview();
   reportNoError(hashtagsFieldNode);
   reportNoError(commentFieldNode);
   clearFormField(hashtagsFieldNode);
   clearFormField(commentFieldNode);
 }
+
+const isPictureTypeMatch = (pictureName) => PICTURE_FILE_TYPES.some((fileType) => pictureName.endsWith(`.${fileType}`));
 
 const hideMessage = (messageNode) => {
   messageNode.remove();
@@ -107,9 +119,26 @@ const onUploadFormSubmit = (evt) => {
   );
 }
 
-uploadButtonNode.addEventListener('input', () => {
-  openModal(uploadModalNode, closeButtonNode, 'upload');
-});
+const onUploadButtonInput = () => {
+  const chosenPicture = uploadButtonNode.files[0];
+  const chosenPictureName = chosenPicture.name.toLowerCase();
+
+  if (!isPictureTypeMatch(chosenPictureName)) {
+    showErrorMessage(wrongTypeMessage, WRONG_TYPE_MESSAGE_DURATION);
+    resetUploadValue();
+    return;
+  }
+
+  showPictureLoader();
+
+  loadChosenPicture(chosenPicture)
+    .then(() => {
+      hidePictureLoader();
+      openModal(uploadModalNode, closeButtonNode, 'upload');
+    });
+}
+
+uploadButtonNode.addEventListener('input', onUploadButtonInput);
 
 uploadForm.addEventListener('submit', onUploadFormSubmit);
 
