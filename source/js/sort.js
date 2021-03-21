@@ -2,9 +2,10 @@
 
 import { updatePictures } from './gallery.js';
 
+const SIZE_OF_RANDOM_GALLERY = 10;
+
 const sortButtonsNode = document.querySelector('.img-filters');
 const sortButtonActiveClassName = 'img-filters__button--active';
-const SIZE_OF_RANDOM_GALLERY = 10;
 
 const showSortButtons = () => {
   sortButtonsNode.classList.remove('img-filters--inactive');

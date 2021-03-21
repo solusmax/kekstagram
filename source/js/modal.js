@@ -7,6 +7,8 @@ const onModalCloseClick = (modalNode, closeNode, specialModal) => {
   }
 };
 
+let onModalCloseClickWrapper;
+
 const onModalEscKeydown = (modalNode, closeNode, specialModal) => {
   return (evt) => {
     if (isEscEvent(evt) && !isUploadFieldInFocus(evt)) {
@@ -17,7 +19,6 @@ const onModalEscKeydown = (modalNode, closeNode, specialModal) => {
   }
 }
 
-let onModalCloseClickWrapper;
 let onModalEscKeydownWrapper;
 
 const openModal = (modalNode, closeNode, specialModal) => {

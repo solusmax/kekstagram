@@ -1,5 +1,5 @@
 import { isStringFit, isStringEmpty } from './util.js';
-import { reportError, reportNoError, ERROR_BORDER_STYLE } from './upload-picture.js';
+import { reportValidationError, reportNoValidationError, ERROR_BORDER_STYLE } from './upload-picture.js';
 
 const HashtagsSettings = {
   MAX_NUMBER: 5,
@@ -14,8 +14,9 @@ const onHashtagsFieldChange = () => {
 
   if (isStringEmpty(hashtagsString)) {
     if (hashtagsFieldNode.validity.customError) {
-      reportNoError(hashtagsFieldNode);
+      reportNoValidationError(hashtagsFieldNode);
     }
+
     return;
   }
 
@@ -23,11 +24,11 @@ const onHashtagsFieldChange = () => {
 
   for (const [validationFunction, errorMessage] of errorCheckers.entries()) {
     if (!validationFunction(hashtags)) {
-      reportError(hashtagsFieldNode, errorMessage, ERROR_BORDER_STYLE);
+      reportValidationError(hashtagsFieldNode, errorMessage, ERROR_BORDER_STYLE);
       return;
-    } else {
-      reportNoError(hashtagsFieldNode);
     }
+
+    reportNoValidationError(hashtagsFieldNode);
   }
 }
 

@@ -8,7 +8,6 @@ const commentsLoaderButtonNode = document.querySelector('.comments-loader');
 const shownCommentsCounterNode = document.querySelector('.shown-comments-count');
 
 let shownComments = 0;
-let onCommentsLoaderClickWrapper;
 
 const createComment = ({ avatar, message, name }) => {
   const commentNode = commentTemplateNode.cloneNode(true);
@@ -40,6 +39,8 @@ const onCommentsLoaderClick = (comments) => {
   }
 }
 
+let onCommentsLoaderClickWrapper;
+
 const showCommentsLoader = () => {
   commentsLoaderButtonNode.classList.remove('hidden');
   commentsLoaderButtonNode.addEventListener('click', onCommentsLoaderClickWrapper);
@@ -54,10 +55,10 @@ const updateShownCommentsCounter = () => {
   shownCommentsCounterNode.textContent = shownComments;
 }
 
-const getCommentsNumberInPiece = (remainingComments) => Math.min(COMMENTS_IN_PIECE, remainingComments.length)
+const getCommentsNumberInNextPiece = (remainingComments) => Math.min(COMMENTS_IN_PIECE, remainingComments.length)
 
 const renderPieceOfComments = (comments) => {
-  let commentsNumberInPiece = getCommentsNumberInPiece(comments);
+  const commentsNumberInPiece = getCommentsNumberInNextPiece(comments);
 
   const commentsFragment = document.createDocumentFragment();
 
@@ -73,8 +74,8 @@ const renderPieceOfComments = (comments) => {
 }
 
 const renderComments = (comments) => {
-  let currentComments = comments.slice();
-  let commentsNumber = currentComments.length;
+  const currentComments = comments.slice();
+  const commentsNumber = currentComments.length;
 
   if (commentsNumber === 0) {
     return;
