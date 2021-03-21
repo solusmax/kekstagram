@@ -3,7 +3,7 @@ import { openModal, closeModal } from './modal.js';
 import { resetScale } from './scale.js';
 import { removeSlider, resetPictureEffect, resetEffectRadioButtons } from './effects.js';
 import { hashtagsFieldNode } from './hashtags-validation.js';
-import { commentFieldNode } from './comment-validation.js';
+import { descriptionFieldNode } from './description-validation.js';
 import { sendPhotoData } from './data.js';
 import { isEscEvent, clearFormField, showErrorMessage } from './util.js';
 
@@ -12,10 +12,9 @@ const PICTURE_FILE_TYPES = [
   'jpeg',
   'png',
 ];
-const WRONG_TYPE_MESSAGE_DURATION = 1500;
+const WRONG_TYPE_ERROR_MESSAGE = 'Выбран неподходящий файл';
+const ERROR_MESSAGE_DURATION = 1500;
 const ERROR_BORDER_STYLE = '3px red solid';
-
-const wrongTypeMessage = 'Выбран неподходящий файл';
 
 const uploadForm = document.querySelector('#upload-select-image');
 const uploadButtonNode = uploadForm.querySelector('#upload-file');
@@ -23,23 +22,23 @@ const uploadModalNode = uploadForm.querySelector('.img-upload__overlay');
 const closeButtonNode = uploadModalNode.querySelector('#upload-cancel');
 const mainNode = document.querySelector('main');
 
-const reportError = (field, string, borderStyle) => {
+const resetUploadValue = () => {
+  uploadButtonNode.value = null;
+}
+
+const reportValidationError = (field, string, borderStyle) => {
   field.style.border = borderStyle;
   field.setCustomValidity(string);
   field.reportValidity();
 }
 
-const reportNoError = (field) => reportError(field, '', null);
+const reportNoValidationError = (field) => reportValidationError(field, '', null);
 
 const isUploadFieldInFocus = (evt) => {
   return (
     evt.target === hashtagsFieldNode ||
-    evt.target === commentFieldNode
+    evt.target === descriptionFieldNode
   );
-}
-
-const resetUploadValue = () => {
-  uploadButtonNode.value = null;
 }
 
 const resetUploadSettings = () => {
@@ -49,27 +48,23 @@ const resetUploadSettings = () => {
   resetEffectRadioButtons();
   resetUploadValue();
   resetPicturePreview();
-  reportNoError(hashtagsFieldNode);
-  reportNoError(commentFieldNode);
+  reportNoValidationError(hashtagsFieldNode);
+  reportNoValidationError(descriptionFieldNode);
   clearFormField(hashtagsFieldNode);
-  clearFormField(commentFieldNode);
+  clearFormField(descriptionFieldNode);
 }
 
 const isPictureTypeMatch = (pictureName) => PICTURE_FILE_TYPES.some((fileType) => pictureName.endsWith(`.${fileType}`));
 
-const hideMessage = (messageNode) => {
-  messageNode.remove();
-}
-
 const onMessageOkayButtonClick = (messageNode) => {
   return () => {
-    hideMessage(messageNode);
+    hideResultMessage(messageNode);
   }
 }
 
 const onMessageClick = (messageNode) => {
   return () => {
-    hideMessage(messageNode);
+    hideResultMessage(messageNode);
   }
 }
 
@@ -82,26 +77,36 @@ const onMessageEscKeydown = (messageNode) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
 
-      hideMessage(messageNode);
+      hideResultMessage(messageNode);
     }
   }
 }
 
-const onSubmit = (status) => {
+let onMessageEscKeydownWrapper;
+
+const hideResultMessage = (messageNode) => {
+  messageNode.remove();
+
+  document.removeEventListener('keydown', onMessageEscKeydownWrapper);
+}
+
+const showResultMessage = (result) => {
   return () => {
     closeModal(uploadModalNode, closeButtonNode, 'upload');
 
-    const messageTemplateNode = document.querySelector(`#${status}`)
+    const messageTemplateNode = document.querySelector(`#${result}`)
       .content
-      .querySelector(`.${status}`);
+      .querySelector(`.${result}`);
     const messageNode = messageTemplateNode.cloneNode(true);
-    const messageInnerNode = messageNode.querySelector(`.${status}__inner`);
-    const messageOkayButtonNode = messageNode.querySelector(`.${status}__button`);
+    const messageInnerNode = messageNode.querySelector(`.${result}__inner`);
+    const messageOkayButtonNode = messageNode.querySelector(`.${result}__button`);
+
+    onMessageEscKeydownWrapper = onMessageEscKeydown(messageNode);
 
     messageOkayButtonNode.addEventListener('click', onMessageOkayButtonClick(messageNode));
     messageNode.addEventListener('click', onMessageClick(messageNode));
     messageInnerNode.addEventListener('click', onMessageInnerClick);
-    document.addEventListener('keydown', onMessageEscKeydown(messageNode));
+    document.addEventListener('keydown', onMessageEscKeydownWrapper);
 
     mainNode.appendChild(messageNode);
   }
@@ -113,8 +118,8 @@ const onUploadFormSubmit = (evt) => {
   const uploadFormData = new FormData(uploadForm);
 
   sendPhotoData(
-    onSubmit('success'),
-    onSubmit('error'),
+    showResultMessage('success'),
+    showResultMessage('error'),
     uploadFormData,
   );
 }
@@ -124,7 +129,7 @@ const onUploadButtonInput = () => {
   const chosenPictureName = chosenPicture.name.toLowerCase();
 
   if (!isPictureTypeMatch(chosenPictureName)) {
-    showErrorMessage(wrongTypeMessage, WRONG_TYPE_MESSAGE_DURATION);
+    showErrorMessage(WRONG_TYPE_ERROR_MESSAGE, ERROR_MESSAGE_DURATION);
     resetUploadValue();
     return;
   }
@@ -145,8 +150,8 @@ uploadForm.addEventListener('submit', onUploadFormSubmit);
 export {
   resetUploadSettings,
   isUploadFieldInFocus,
-  reportError,
-  reportNoError,
+  reportValidationError,
+  reportNoValidationError,
   ERROR_BORDER_STYLE,
   uploadForm
 }

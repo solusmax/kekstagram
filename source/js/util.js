@@ -4,13 +4,7 @@ const errorMessageTemplateNode = document.querySelector('#error-alert')
 
 // Проверка, не превышает ли строка максимальное количество символов
 
-const isStringFit = (string, maxLength) => {
-  if (maxLength < 0) {
-    throw new RangeError('Число не должно быть отрицательным.');
-  }
-
-  return string.length <= maxLength;
-}
+const isStringFit = (string, maxLength) => string.length <= maxLength;
 
 // Проверка нажатия клавиши Esc
 

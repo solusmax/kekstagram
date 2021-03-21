@@ -22,9 +22,9 @@ const renderPictures = (pictures) => {
 }
 
 const clearPictures = () => {
-  const allPictures = picturesNode.querySelectorAll('.picture');
+  const pictures = picturesNode.querySelectorAll('.picture');
 
-  allPictures.forEach((picture) => {
+  pictures.forEach((picture) => {
     picture.remove();
   });
 }

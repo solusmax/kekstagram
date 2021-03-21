@@ -1,7 +1,7 @@
 /* global noUiSlider:readonly */
 
 const Effects = {
-  DEFAULT: {
+  ORIGINAL: {
     FILTER: 'none',
   },
   CHROME: {
@@ -9,14 +9,14 @@ const Effects = {
     MIN: 0,
     MAX: 1,
     STEP: 0.1,
-    DEFAULT: 1,
+    DEFAULT_VALUE: 1,
   },
   SEPIA: {
     FILTER: 'sepia',
     MIN: 0,
     MAX: 1,
     STEP: 0.1,
-    DEFAULT: 1,
+    DEFAULT_VALUE: 1,
   },
   MARVIN: {
     FILTER: 'invert',
@@ -24,7 +24,7 @@ const Effects = {
     MIN: 0,
     MAX: 100,
     STEP: 1,
-    DEFAULT: 100,
+    DEFAULT_VALUE: 100,
   },
   PHOBOS: {
     FILTER: 'blur',
@@ -32,14 +32,14 @@ const Effects = {
     MIN: 0,
     MAX: 3,
     STEP: 0.1,
-    DEFAULT: 3,
+    DEFAULT_VALUE: 3,
   },
   HEAT: {
     FILTER: 'brightness',
     MIN: 1,
     MAX: 3,
     STEP: 0.1,
-    DEFAULT: 3,
+    DEFAULT_VALUE: 3,
   },
 }
 
@@ -56,7 +56,7 @@ const onEffectRadioChange = (effectName) => {
   return () => {
     resetPictureEffect();
 
-    if (effectName === Effects.DEFAULT.FILTER) {
+    if (effectName === Effects.ORIGINAL.FILTER) {
       removeSlider();
     } else {
       renderEffect(effectName);
@@ -110,7 +110,7 @@ const resetPictureEffect = () => {
     previewImgNode.classList.remove(currentEffectClass);
   }
 
-  previewImgNode.style.filter = Effects.DEFAULT.FILTER;
+  previewImgNode.style.filter = Effects.ORIGINAL.FILTER;
   effectLevelValueNode.value = null;
 }
 
@@ -127,7 +127,7 @@ const getEffectValues = (effectName) => {
     min: effectValues.MIN,
     max: effectValues.MAX,
     step: effectValues.STEP,
-    defaultValue: effectValues.DEFAULT,
+    defaultValue: effectValues.DEFAULT_VALUE,
   }
 }
 

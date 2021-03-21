@@ -2,11 +2,10 @@ import { showErrorMessage } from './util.js';
 
 const PHOTOS_DATA_URL = 'https://22.javascript.pages.academy/kekstagram/data';
 const SENDING_PHOTO_URL = 'https://22.javascript.pages.academy/kekstagram';
-
-const messages = {
-  sending: 'Отправка...',
-  loadingError: 'Ошибка загрузки изображений',
-  sendingError: 'Ошибка загрузки файла',
+const Messages = {
+  SENDING: 'Отправка...',
+  LOADING_ERROR: 'Ошибка загрузки изображений',
+  SENDING_ERROR: 'Ошибка загрузки файла',
 }
 
 const submitButtonNode = document.querySelector('#upload-submit');
@@ -20,7 +19,7 @@ const getPhotosData = (onSuccess) => {
         return response.json()
       }
 
-      throw new Error(messages.loadingError);
+      throw new Error(Messages.LOADING_ERROR);
     })
     .then((photos) => {
       onSuccess(photos);
@@ -32,7 +31,7 @@ const getPhotosData = (onSuccess) => {
 
 const showSendingMessageOnSubmitButton = () => {
   initialSubmitButtonText = submitButtonNode.textContent;
-  submitButtonNode.textContent = messages.sending;
+  submitButtonNode.textContent = Messages.SENDING;
   submitButtonNode.disabled = true;
 }
 
@@ -52,7 +51,7 @@ const sendPhotoData = (onSuccess, onError, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        throw new Error(messages.sendingError);
+        throw new Error(Messages.SENDING_ERROR);
       }
     })
     .catch(() => {
