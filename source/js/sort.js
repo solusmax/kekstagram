@@ -16,10 +16,10 @@ const sortGalleryByDefault = (pictures) => {
 }
 
 const sortGalleryRadnomly = (pictures) => {
-  const sortedPicures = _.shuffle(pictures.slice())
+  const sortedPictures = _.shuffle(pictures.slice())
     .slice(0, SIZE_OF_RANDOM_GALLERY);
 
-  updatePictures(sortedPicures);
+  updatePictures(sortedPictures);
 }
 
 const getPictureCommentsCount = (picture) => picture.comments.length;
@@ -32,11 +32,11 @@ const comparePicturesByComments = (pictureA, pictureB) => {
 }
 
 const sortGalleryByComments = (pictures) => {
-  const sortedPicures = pictures
+  const sortedPictures = pictures
     .slice()
     .sort(comparePicturesByComments);
 
-  updatePictures(sortedPicures);
+  updatePictures(sortedPictures);
 }
 
 const sortOrders = {
